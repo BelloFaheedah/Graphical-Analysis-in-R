@@ -1,0 +1,160 @@
+---
+title: "Graphical Analysis in R"
+output: html_notebook
+---
+
+**BACKGROUND**
+
+Almost all organizations use statistical data analysis to draw inferences about their production and sales processes.
+Global Products, a manufacturer of daily items, collects some general data about customers froma local market and stores it in the dailySpend.csv dataset. Global Products intends to use this data to get important insights regarding the behavior and buying tendencies of customers.
+
+Loading the dataset, then calculating profit on the daily earnings of individuals of an area to plot a graph.
+```{r}
+
+setwd("C:/Users/BELLO FAHEEDAH/Desktop/DASCA_ABDA") # set the working directory
+dailyspend=read.csv("C:/Users/BELLO FAHEEDAH/Desktop/DASCA_ABDA/Datasets/Datasets/dailySpend.csv", header = T)
+head(dailyspend)
+```
+
+```{r}
+profit= dailyspend$dailyEarnings- dailyspend$dailyNeedsSpend
+head(profit)
+```
+A two-variable graph showing personname against profit made
+```{r}
+Names=dailyspend$personName
+plot(Names, profit, type = "h")
+```
+**Plotting A Two-Variable Scatter Plot Graph**
+```{r}
+#loading the csv file 'scatterRaw.csv' to produce a scatter plot 
+rawdata= read.csv("C:/Users/BELLO FAHEEDAH/Desktop/DASCA_ABDA/Datasets/Datasets/scatterRaw1.csv", header = T)
+names(rawdata)
+```
+
+```{r}
+head(rawdata)
+```
+
+```{r}
+plot(rawdata$aa, rawdata$bb, col='brown', xlab = "Explanatory variable", ylab = "Responsive variable")
+
+```
+Adding regression lines to the plot
+```{r}
+plot(rawdata,xlab = "Explanatory variable", ylab = "Responsive variable", col="red")
+abline(lm(rawdata$bb~rawdata$aa))
+
+```
+
+**Labeling A Scatter Plot Using A Third Variable**
+```{r}
+#loading a dataset that has three variables
+pragAcid<- read.table("C:/Users/BELLO FAHEEDAH/Desktop/DASCA_ABDA/Datasets/Datasets/PragmaticAcid.txt", header=T)
+head(pragAcid)
+```
+
+```{r}
+attach(pragAcid)
+names(pragAcid)
+
+```
+
+
+```{r}
+plot(pragAcid$index, pragAcid$pH)
+```
+Labeling the scatterplot with the 'feacalRate' variable
+```{r}
+plot(pragAcid$index, pragAcid$pH)
+text(pragAcid$index, pragAcid$pH, labels = round(pragAcid$feacalRate, 2), pos = 1, offset = 0.5, cex = 0.7)
+
+```
+**Plotting Mathematical Functions**
+```{r}
+first<-seq(-2, 2, 0.08)
+second<-first^3 - 1.7*first
+plot(first, second, type = "l")
+```
+**Adding Shapes to A Plot**
+```{r}
+plot(0.20, 0.20, xlab="", ylab = "", xaxt="n", yaxt="n", type = "n")
+rect(5,7,8,9)
+arrows(1,1,3,8)
+arrows(12,10,10,7, code=3)
+arrows(15,12, 13, 15, code = 3, angle = 65)
+```
+**Drawing Smooth Curves**
+```{r}
+someSeq <- 0:100
+firstline<-371*someSeq*exp(-0.090*someSeq)
+secline<-407 *someSeq*exp(-0.080*someSeq)
+plot(c(someSeq, someSeq), c(firstline, secline), xlab = "stock", ylab = "recruits", type="n")
+lines(someSeq, firstline, lty=1, col="red")
+lines(someSeq, secline, lty=2, col="navy")
+```
+**Joining Dots**
+
+```{r}
+dot<-read.table("C:/Users/BELLO FAHEEDAH/Desktop/DASCA_ABDA/Datasets/Datasets/dotData.txt", header = T)
+attach(dot)
+names(dot)
+
+```
+```{r}
+head(dot)
+```
+
+```{r}
+sequencee<-order(seq1)
+plot(dot)
+lines(seq1[sequencee], seq2[sequencee])
+plot(seq1,seq2, pch=16)
+lines(seq1, seq2)
+```
+Plotting A Categorical Explanatory Variable
+```{r}
+catvar=read.table("C:/Users/BELLO FAHEEDAH/Desktop/DASCA_ABDA/Datasets/Datasets/compExp.txt", header = T)
+head(catvar)
+```
+
+```{r}
+plot(catvar$exp, catvar$output, xlab="Exp.", ylab= "Output")
+
+```
+**Time Series Graph**
+```{r}
+library(MASS)
+data(UKLungDeaths)
+```
+
+```{r}
+ts.plot(ldeaths,mdeaths,fdeaths, xlab="year", ylab="deaths", lty=c(1:3))
+```
+**Plots with Many Variables**
+```{r}
+ozonedata=read.table("C:/Users/BELLO FAHEEDAH/Desktop/DASCA_ABDA/Datasets/Datasets/ozone.txt", header = T)
+head(ozonedata)
+```
+
+```{r}
+pairs(ozonedata, panel=panel.smooth)
+```
+**Plotting Histograms for Single Samples**
+```{r}
+data(mtcars)
+head(mtcars)
+```
+
+```{r}
+hist(mtcars$mpg, breaks = 12, col="orange")
+```
+
+```{r}
+healthclaim=read.csv("C:/Users/BELLO FAHEEDAH/Desktop/DASCA_ABDA/Datasets/Datasets/healthClaim.csv", header=T)
+head(healthclaim)
+```
+
+```{r}
+hist(healthclaim$age, col="brown")
+```
